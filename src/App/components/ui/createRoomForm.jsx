@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { useRooms } from "../../hooks/useRooms";
 import TextField from "../common/form/textField";
 import MultiSelectField from "../common/form/multiSelectField";
 import TextAreaField from "../common/form/textAreaField";
+import { useDispatch } from "react-redux";
+import { createRoom } from "../../store/rooms";
 
 const CreateRoomForm = () => {
-  const { createRoom } = useRooms();
-  const [errors, setErrors] = useState({});
+  const dispatch = useDispatch();
   const [data, setData] = useState({
     name: "",
     places: "",
@@ -20,13 +20,7 @@ const CreateRoomForm = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      createRoom(data);
-    } catch (error) {
-      setErrors(error);
-      console.log(error);
-    }
-    console.log(errors);
+    dispatch(createRoom(data));
   };
   return (
     <>

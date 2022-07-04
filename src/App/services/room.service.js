@@ -11,6 +11,10 @@ const roomService = {
     const { data } = await httpService.post(roomEndpoind, payload);
     return data;
   },
+  update: async (payload) => {
+    const { data } = await httpService.patch(roomEndpoind, payload);
+    return data;
+  },
 };
 
 export default roomService;

@@ -1,16 +1,19 @@
 import React from "react";
-import { useRooms } from "../../../hooks/useRooms";
+import { useSelector } from "react-redux";
+import { getRoomsList } from "../../../store/rooms";
 import RoomPage from "../roomPage/roomPage";
 
 const RoomsListPage = () => {
-  const { rooms } = useRooms();
+  const rooms = useSelector(getRoomsList());
   console.log("RoomsListPage", rooms);
   return (
     <>
       <div className="container">
         <div className="card p-3 mt-5">
           <h3>Список доступных номеров</h3>
-          <RoomPage rooms={rooms} />
+          {rooms.map((room) => {
+            return <RoomPage room={room} key={room._id} />;
+          })}
         </div>
       </div>
     </>

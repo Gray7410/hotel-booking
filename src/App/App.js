@@ -1,16 +1,14 @@
 import RoomsListPage from "./components/page/roomsListPage/roomsListPage";
+import AppLoader from "./components/ui/hoc/appLoader";
 import CreateRoomForm from "./components/ui/createRoomForm";
-import RoomProvider from "./hooks/useRooms";
 
 function App() {
   return (
-    <>
+    <AppLoader>
       <h1>Hotel booking</h1>
-      <RoomProvider>
-        <RoomsListPage />
-        <CreateRoomForm />
-      </RoomProvider>
-    </>
+      <RoomsListPage />
+      <CreateRoomForm />
+    </AppLoader>
   );
 }
 
