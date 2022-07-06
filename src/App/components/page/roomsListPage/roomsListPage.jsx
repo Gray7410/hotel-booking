@@ -9,8 +9,8 @@ const RoomsListPage = () => {
   return (
     <>
       <div className="container">
-        <div className="card p-3 mt-5">
-          <h3>Список доступных номеров</h3>
+        <h3 className="mt-5">Список доступных номеров</h3>
+        <div className="card p-3 mt-4 mb-5">
           {rooms.map((room) => {
             return <RoomPage room={room} key={room._id} />;
           })}
