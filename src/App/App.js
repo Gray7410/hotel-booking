@@ -1,13 +1,19 @@
-import RoomsListPage from "./components/page/roomsListPage/roomsListPage";
 import AppLoader from "./components/ui/hoc/appLoader";
-import CreateRoomForm from "./components/ui/createRoomForm";
+import NavBar from "./components/ui/navBar";
+import { Route, Switch } from "react-router-dom";
+import Rooms from "./layouts/rooms";
+import Main from "./layouts/main";
+import RoomAdd from "./layouts/roomAdd";
 
 function App() {
   return (
     <AppLoader>
-      <h1>Hotel booking</h1>
-      <RoomsListPage />
-      <CreateRoomForm />
+      <NavBar />
+      <Switch>
+        <Route path="/rooms/add" component={RoomAdd} />
+        <Route path="/rooms" component={Rooms} />
+        <Route exact path="/" component={Main} />
+      </Switch>
     </AppLoader>
   );
 }
