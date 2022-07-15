@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import TextField from "../common/form/textField";
 import RadioField from "../common/form/radioField";
+import { useDispatch } from "react-redux";
+import { signUp } from "../../store/users";
 
 const RegisterForm = () => {
+  const dispatch = useDispatch();
   const [data, setData] = useState({
-    name: "",
     email: "",
     password: "",
+    name: "",
     type: "guest",
     licence: false,
   });
@@ -20,7 +23,7 @@ const RegisterForm = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log("Отправлено: ", data);
-    //dispatch
+    dispatch(signUp(data));
   };
   return (
     <form onSubmit={handleSubmit}>
