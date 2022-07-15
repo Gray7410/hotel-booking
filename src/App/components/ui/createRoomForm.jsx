@@ -24,7 +24,7 @@ const CreateRoomForm = () => {
   };
   return (
     <>
-      <div className="container mt-5">
+      <div className="container mt-5 col-4">
         <h3>Добавление номера</h3>
         <div className="card p-3 mt-4 mb-5">
           <form onSubmit={handleSubmit}>
