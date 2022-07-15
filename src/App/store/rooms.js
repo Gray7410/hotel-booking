@@ -1,5 +1,6 @@
 import { createAction, createSlice } from "@reduxjs/toolkit";
 import roomService from "../services/room.service";
+import history from "../utils/history";
 
 const roomsSlice = createSlice({
   name: "rooms",
@@ -50,10 +51,14 @@ export const loadRoomsList = () => async (dispatch, getState) => {
 };
 
 export const createRoom = (payload) => async (dispatch) => {
+  console.log(payload);
   dispatch(roomCreateRequested());
   try {
     const { content } = await roomService.create(payload);
+    console.log(content);
     dispatch(roomCreated(content));
+    dispatch(loadRoomsList());
+    history.push("/rooms");
   } catch (error) {
     dispatch(roomCreateFailed(error.message));
   }

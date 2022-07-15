@@ -4,6 +4,7 @@ import { Route, Switch } from "react-router-dom";
 import Rooms from "./layouts/rooms";
 import Main from "./layouts/main";
 import RoomAdd from "./layouts/roomAdd";
+import Auth from "./layouts/auth";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <Switch>
         <Route path="/rooms/add" component={RoomAdd} />
         <Route path="/rooms" component={Rooms} />
+        <Route path="/auth" component={Auth} />
         <Route exact path="/" component={Main} />
       </Switch>
     </AppLoader>

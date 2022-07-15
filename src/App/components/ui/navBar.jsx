@@ -22,7 +22,11 @@ const NavBar = () => {
             </Link>
           </li>
         </ul>
-        <div className="d-flex">Авторизация</div>
+        <div className="d-flex">
+          <Link className="nav-link text-light" to="/auth">
+            Авторизация
+          </Link>
+        </div>
       </div>
     </nav>
   );
