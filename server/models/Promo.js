@@ -10,18 +10,13 @@ const schema = new Schema(
       type: String,
       required: true,
     },
-    places: {
-      type: String,
-      required: true,
-    },
     image: {
       type: String,
     },
-    qualities: [{ type: Schema.Types.ObjectId, ref: "Quality" }],
   },
   {
     timestamps: true,
   }
 );
 
-module.exports = model("Room", schema);
+module.exports = model("Promo", schema);
