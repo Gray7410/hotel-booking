@@ -14,10 +14,10 @@ module.exports = async () => {
   if (promo.length !== promoMock.length) {
     await createInitialEntity(Promo, promoMock);
   }
-  const room = await Room.find();
-  if (room.length !== roomMock.length) {
-    await createInitialEntity(Room, roomMock);
-  }
+  // const room = await Room.find();
+  // if (room.length !== roomMock.length) {
+  //   await createInitialEntity(Room, roomMock);
+  // }
 };
 
 async function createInitialEntity(Model, data) {

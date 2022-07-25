@@ -18,6 +18,7 @@ const schema = new Schema(
       type: String,
     },
     qualities: [{ type: Schema.Types.ObjectId, ref: "Quality" }],
+    createdBy: { type: Schema.Types.ObjectId, ref: "User", required: true },
   },
   {
     timestamps: true,
