@@ -22,9 +22,23 @@ router.patch("/:userId", auth, async (req, res) => {
   }
 });
 
-router.get("/", auth, async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const list = await User.find();
+    console.log(list);
+    res.send(list);
+  } catch (error) {
+    res.status(500).json({
+      message: "На сервере произошла ошибка. Попробуйте позже",
+    });
+  }
+});
+
+router.get("/:userId", async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const list = await User.findById(userId);
+    console.log(list);
     res.send(list);
   } catch (error) {
     res.status(500).json({

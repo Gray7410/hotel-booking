@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import TextField from "../common/form/textField";
+import { login } from "../../store/users";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 const LoginForm = () => {
+  const history = useHistory();
+  const dispatch = useDispatch();
   const [data, setData] = useState({
     email: "",
     password: "",
@@ -13,6 +18,10 @@ const LoginForm = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log("Авторизация: ", data);
+    const redirect = history.location.state
+      ? history.location.state.from.pathname
+      : "/";
+    dispatch(login({ payload: data, redirect }));
   };
   return (
     <form onSubmit={handleSubmit}>

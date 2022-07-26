@@ -8,7 +8,7 @@ const roomService = {
     return data;
   },
   create: async (payload) => {
-    const { data } = await httpService.post(roomEndpoind, payload);
+    const { data } = await httpService.post(roomEndpoind + "add", payload);
     return data;
   },
   update: async (payload) => {

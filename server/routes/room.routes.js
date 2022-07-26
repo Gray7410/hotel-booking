@@ -63,7 +63,7 @@ router.patch("/:roomId/edit", auth, async (req, res) => {
   }
 });
 
-router.delete("/:roomId", auth, async (req, res) => {
+router.delete("/:roomId", async (req, res) => {
   try {
     const { roomId } = req.mergeParams;
     const removedRoom = await Room.findById({ roomId });
