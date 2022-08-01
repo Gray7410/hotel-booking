@@ -12,7 +12,7 @@ function App() {
       <NavBar />
       <Switch>
         <Route path="/rooms/add" component={RoomAdd} />
-        <Route path="/rooms" component={Rooms} />
+        <Route path="/rooms/:roomId?/:edit?" component={Rooms} />
         <Route path="/auth" component={Auth} />
         <Route exact path="/" component={Main} />
       </Switch>

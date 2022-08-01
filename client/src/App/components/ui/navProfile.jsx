@@ -29,6 +29,9 @@ const NavProfile = () => {
         <Link to={`/users/${currentUser._id}`} className="dropdown-item">
           Профиль
         </Link>
+        <Link to={`/rooms/add`} className="dropdown-item">
+          Добавить номер
+        </Link>
         <Link to="/logout" className="dropdown-item">
           Выход
         </Link>

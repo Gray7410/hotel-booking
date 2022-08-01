@@ -64,7 +64,14 @@ export const createRoom = (payload) => async (dispatch) => {
   }
 };
 
+export const getRoomById = (roomId) => (state) => {
+  if (state.rooms.entities) {
+    return state.rooms.entities.find((r) => r._id === roomId);
+  }
+};
+
 export const getRoomsList = () => (state) => state.rooms.entities;
 export const getRoomsLoadingStatus = () => (state) => state.rooms.isLoading;
+export const getDataStatus = () => (state) => state.rooms.dataLoaded;
 
 export default roomsReducer;
