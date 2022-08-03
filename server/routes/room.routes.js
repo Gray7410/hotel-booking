@@ -31,6 +31,7 @@ router.post("/add", auth, async (req, res) => {
   try {
     const newRoom = await Room.create({
       ...req.body,
+      available: "null",
       createdBy: req.user._id,
     });
 
@@ -42,7 +43,7 @@ router.post("/add", auth, async (req, res) => {
   }
 });
 
-router.patch("/:roomId/edit", auth, async (req, res) => {
+router.put("/:roomId/edit", auth, async (req, res) => {
   try {
     const { roomId } = req.params;
 
@@ -56,6 +57,27 @@ router.patch("/:roomId/edit", auth, async (req, res) => {
     } else {
       res.status(401).json({ message: "Unauthorized" });
     }
+  } catch (error) {
+    res.status(500).json({
+      message: "На сервере произошла ошибка. Попробуйте позже",
+    });
+  }
+});
+
+router.put("/:roomId/edit", auth, async (req, res) => {
+  try {
+    const { roomId } = req.params;
+    await Room.findByIdAndUpdate(
+      roomId,
+      {
+        $set: req.body,
+      },
+      {
+        new: true,
+      }
+    );
+    console.log(req.body);
+    res.status(200).json("Изменилось бронирование номера");
   } catch (error) {
     res.status(500).json({
       message: "На сервере произошла ошибка. Попробуйте позже",

@@ -3,6 +3,7 @@ import { getRoomById } from "../../../store/rooms";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
+import AvailableButton from "../../ui/availableButton";
 
 const RoomPage = () => {
   const params = useParams();
@@ -17,6 +18,8 @@ const RoomPage = () => {
         alt={room.name}
         width="500"
       />
+
+      <AvailableButton />
       <Link to={`${roomId}/edit`}>
         <button className="btn btn-outline-success m-2">Редактировать</button>
       </Link>
