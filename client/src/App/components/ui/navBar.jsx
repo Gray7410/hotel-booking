@@ -8,7 +8,7 @@ const NavBar = () => {
   const isLoggedIn = useSelector(getIsLoggedIn());
   return (
     <nav className="navbar bg-secondary mb-3">
-      <div className="container-fluid">
+      <div className="container">
         <ul className="nav">
           <li className="nav-item">
             <Link className="nav-link text-light" to="/">
@@ -18,11 +18,6 @@ const NavBar = () => {
           <li className="nav-item">
             <Link className="nav-link text-light" to="/rooms">
               Номера
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link text-light" to="/rooms/add">
-              Добавить номер
             </Link>
           </li>
         </ul>

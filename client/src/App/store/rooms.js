@@ -29,16 +29,28 @@ const roomsSlice = createSlice({
       }
       state.entities.push(action.payload);
     },
+    roomUpdated: (state, action) => {
+      state.entities[
+        state.entities.findIndex((r) => r._id === action.payload._id)
+      ] = action.payload;
+    },
   },
 });
 
 const { reducer: roomsReducer, actions } = roomsSlice;
 
-const { roomsRequested, roomsReceived, roomsRequestFailed, roomCreated } =
-  actions;
+const {
+  roomsRequested,
+  roomsReceived,
+  roomsRequestFailed,
+  roomCreated,
+  roomUpdated,
+} = actions;
 
 const roomCreateRequested = createAction("rooms/roomCreateRequested");
 const roomCreateFailed = createAction("rooms/roomCreateFailed");
+const roomUpdateFailed = createAction("rooms/roomUpdateFailed");
+const roomUpdateRequested = createAction("rooms/roomUpdaterequested");
 
 export const loadRoomsList = () => async (dispatch, getState) => {
   dispatch(roomsRequested());
@@ -64,7 +76,29 @@ export const createRoom = (payload) => async (dispatch) => {
   }
 };
 
+export const getRoomById = (roomId) => (state) => {
+  if (state.rooms.entities) {
+    return state.rooms.entities.find((r) => r._id === roomId);
+  }
+};
+
+export const getRoomAvailableStatus = (roomId) => (state) => {
+  const room = state.rooms.entities.find((r) => r._id === roomId);
+  return room.available;
+};
+
+export const updateRoom = (payload) => async (dispatch) => {
+  dispatch(roomUpdateRequested());
+  try {
+    await roomService.updateRoom(payload);
+    dispatch(roomUpdated(payload));
+  } catch (error) {
+    dispatch(roomUpdateFailed(error.message));
+  }
+};
+
 export const getRoomsList = () => (state) => state.rooms.entities;
 export const getRoomsLoadingStatus = () => (state) => state.rooms.isLoading;
+export const getDataStatus = () => (state) => state.rooms.dataLoaded;
 
 export default roomsReducer;
