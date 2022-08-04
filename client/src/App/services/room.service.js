@@ -22,6 +22,13 @@ const roomService = {
     );
     return data;
   },
+  updateAvailable: async (payload) => {
+    const { data } = await httpService.patch(
+      roomEndpoind + payload._id + "/available",
+      payload
+    );
+    return data;
+  },
 };
 
 export default roomService;
