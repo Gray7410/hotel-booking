@@ -67,8 +67,6 @@ router.put("/:roomId/edit", auth, async (req, res) => {
 router.patch("/:roomId/available", auth, async (req, res) => {
   try {
     const { roomId } = req.params;
-    console.log("available", req.body);
-    console.log("roomId", roomId);
     await Room.findByIdAndUpdate(roomId, req.body, { new: true });
     res.status(200).json(`Изменилось бронирование номера ${roomId}`);
   } catch (error) {
@@ -78,11 +76,10 @@ router.patch("/:roomId/available", auth, async (req, res) => {
   }
 });
 
-router.delete("/:roomId", async (req, res) => {
+router.delete("/:roomId", auth, async (req, res) => {
   try {
-    const { roomId } = req.mergeParams;
-    const removedRoom = await Room.findById({ roomId });
-
+    const { roomId } = req.params;
+    const removedRoom = await Room.findById(roomId);
     if (removedRoom.createdBy.toString() === req.user._id) {
       await removedRoom.remove();
       return res.send(null);

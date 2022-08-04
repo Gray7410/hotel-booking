@@ -39,6 +39,9 @@ const roomsSlice = createSlice({
         state.entities.findIndex((r) => r._id === action.payload._id)
       ].available = action.payload.available;
     },
+    roomDeleted: (state, action) => {
+      state.entities.filter((r) => r._id === action.payload);
+    },
   },
 });
 
@@ -51,6 +54,7 @@ const {
   roomCreated,
   roomUpdated,
   roomAvailableUpdated,
+  roomDeleted,
 } = actions;
 
 const roomCreateRequested = createAction("rooms/roomCreateRequested");
@@ -63,6 +67,8 @@ const roomAvailableUpdateRequested = createAction(
 const roomAvailableUpdateFailed = createAction(
   "rooms/roomAvailableUpdateFailed"
 );
+const roomDeleteRequested = createAction("rooms/roomDeleteRequested");
+const roomDeleteFailed = createAction("rooms/roomDeleteFailed");
 
 export const loadRoomsList = () => async (dispatch, getState) => {
   dispatch(roomsRequested());
@@ -116,6 +122,18 @@ export const updateRoom = (payload) => async (dispatch) => {
     dispatch(roomUpdated(payload));
   } catch (error) {
     dispatch(roomUpdateFailed(error.message));
+  }
+};
+
+export const deleteRoom = (payload) => async (dispatch) => {
+  dispatch(roomDeleteRequested());
+  try {
+    await roomService.delete(payload);
+    dispatch(roomDeleted(payload));
+    dispatch(loadRoomsList());
+    history.push(`/rooms`);
+  } catch (error) {
+    dispatch(roomDeleteFailed());
   }
 };
 

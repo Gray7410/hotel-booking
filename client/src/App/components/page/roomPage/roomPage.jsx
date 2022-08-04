@@ -1,12 +1,17 @@
 import React from "react";
-import { getRoomById, getRoomAvailableStatus } from "../../../store/rooms";
-import { useSelector } from "react-redux";
+import {
+  getRoomById,
+  getRoomAvailableStatus,
+  deleteRoom,
+} from "../../../store/rooms";
+import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import AvailableButton from "../../ui/availableButton";
 import { getIsLoggedIn, getCurrentUserId } from "../../../store/users";
 
 const RoomPage = () => {
+  const dispatch = useDispatch();
   const params = useParams();
   const { roomId } = params;
   const room = useSelector(getRoomById(roomId));
@@ -33,7 +38,12 @@ const RoomPage = () => {
                     Редактировать
                   </button>
                 </Link>
-                <button className="btn btn-outline-danger m-2">Удалить</button>
+                <button
+                  className="btn btn-outline-danger m-2"
+                  onClick={() => dispatch(deleteRoom(roomId))}
+                >
+                  Удалить
+                </button>
               </>
             )}
           </div>

@@ -29,6 +29,11 @@ const roomService = {
     );
     return data;
   },
+  delete: async (payload) => {
+    console.log(payload);
+    const { data } = await httpService.delete(roomEndpoind + payload, payload);
+    return data;
+  },
 };
 
 export default roomService;
