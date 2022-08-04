@@ -38,14 +38,13 @@ const RoomPage = () => {
             )}
           </div>
         </>
+      ) : status !== "null" && status !== currentUser ? (
+        <div className="alert alert-danger" role="alert">
+          Номер не доступен для бронирования
+        </div>
       ) : (
         <div className="alert alert-warning" role="alert">
           Для бронирования номера необходима авторизация.
-        </div>
-      )}
-      {status !== "null" && status !== currentUser && (
-        <div className="alert alert-danger" role="alert">
-          Номер не доступен для бронирования
         </div>
       )}
 
