@@ -120,6 +120,7 @@ export const updateRoom = (payload) => async (dispatch) => {
   try {
     await roomService.updateRoom(payload);
     dispatch(roomUpdated(payload));
+    history.push(`/rooms/${payload._id}`);
   } catch (error) {
     dispatch(roomUpdateFailed(error.message));
   }
