@@ -34,6 +34,14 @@ const roomsSlice = createSlice({
         state.entities.findIndex((r) => r._id === action.payload._id)
       ] = action.payload;
     },
+    roomAvailableUpdated: (state, action) => {
+      state.entities[
+        state.entities.findIndex((r) => r._id === action.payload._id)
+      ].available = action.payload.available;
+    },
+    roomDeleted: (state, action) => {
+      state.entities.filter((r) => r._id === action.payload);
+    },
   },
 });
 
@@ -45,12 +53,22 @@ const {
   roomsRequestFailed,
   roomCreated,
   roomUpdated,
+  roomAvailableUpdated,
+  roomDeleted,
 } = actions;
 
 const roomCreateRequested = createAction("rooms/roomCreateRequested");
 const roomCreateFailed = createAction("rooms/roomCreateFailed");
 const roomUpdateFailed = createAction("rooms/roomUpdateFailed");
 const roomUpdateRequested = createAction("rooms/roomUpdaterequested");
+const roomAvailableUpdateRequested = createAction(
+  "rooms/roomAvailableUpdateRequested"
+);
+const roomAvailableUpdateFailed = createAction(
+  "rooms/roomAvailableUpdateFailed"
+);
+const roomDeleteRequested = createAction("rooms/roomDeleteRequested");
+const roomDeleteFailed = createAction("rooms/roomDeleteFailed");
 
 export const loadRoomsList = () => async (dispatch, getState) => {
   dispatch(roomsRequested());
@@ -87,13 +105,36 @@ export const getRoomAvailableStatus = (roomId) => (state) => {
   return room.available;
 };
 
+export const updateAvailable = (payload) => async (dispatch) => {
+  dispatch(roomAvailableUpdateRequested());
+  try {
+    await roomService.updateAvailable(payload);
+    dispatch(roomAvailableUpdated(payload));
+  } catch (error) {
+    dispatch(roomAvailableUpdateFailed(error.message));
+  }
+};
+
 export const updateRoom = (payload) => async (dispatch) => {
   dispatch(roomUpdateRequested());
   try {
     await roomService.updateRoom(payload);
     dispatch(roomUpdated(payload));
+    history.push(`/rooms/${payload._id}`);
   } catch (error) {
     dispatch(roomUpdateFailed(error.message));
+  }
+};
+
+export const deleteRoom = (payload) => async (dispatch) => {
+  dispatch(roomDeleteRequested());
+  try {
+    await roomService.delete(payload);
+    dispatch(roomDeleted(payload));
+    dispatch(loadRoomsList());
+    history.push(`/rooms`);
+  } catch (error) {
+    dispatch(roomDeleteFailed());
   }
 };
 
