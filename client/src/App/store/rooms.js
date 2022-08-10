@@ -138,6 +138,10 @@ export const deleteRoom = (payload) => async (dispatch) => {
   }
 };
 
+// export const getBookingRooms = () => (state)=>{
+//   state.rooms.entities.filter((r)=>)
+// }
+
 export const getRoomsList = () => (state) => state.rooms.entities;
 export const getRoomsLoadingStatus = () => (state) => state.rooms.isLoading;
 export const getDataStatus = () => (state) => state.rooms.dataLoaded;
