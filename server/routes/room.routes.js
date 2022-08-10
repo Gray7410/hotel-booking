@@ -2,6 +2,8 @@ const express = require("express");
 const auth = require("../middleware/auth.middleware");
 const Room = require("../models/Room");
 const router = express.Router({ mergeParams: true });
+const hasRole = require("../middleware/admin.middleware");
+const User = require("../models/User");
 
 router.get("/", async (req, res) => {
   try {
@@ -27,7 +29,7 @@ router.get("/:roomId", async (req, res) => {
   }
 });
 
-router.post("/add", auth, async (req, res) => {
+router.post("/add", auth, hasRole(["admin", "owner"]), async (req, res) => {
   try {
     const newRoom = await Room.create({
       ...req.body,
@@ -43,26 +45,31 @@ router.post("/add", auth, async (req, res) => {
   }
 });
 
-router.put("/:roomId/edit", auth, async (req, res) => {
-  try {
-    const { roomId } = req.params;
+router.put(
+  "/:roomId/edit",
+  auth,
+  hasRole(["admin", "owner"]),
+  async (req, res) => {
+    try {
+      const { roomId } = req.params;
 
-    const item = await Room.findById(roomId);
+      const item = await Room.findById(roomId);
 
-    if (item.createdBy.toString() === req.user._id) {
-      const updatedRoom = await Room.findByIdAndUpdate(roomId, req.body, {
-        new: true,
+      if (item.createdBy.toString() === req.user._id) {
+        const updatedRoom = await Room.findByIdAndUpdate(roomId, req.body, {
+          new: true,
+        });
+        res.send(updatedRoom);
+      } else {
+        res.status(401).json({ message: "Ошибка авторизации" });
+      }
+    } catch (error) {
+      res.status(500).json({
+        message: "На сервере произошла ошибка. Попробуйте позже",
       });
-      res.send(updatedRoom);
-    } else {
-      res.status(401).json({ message: "Ошибка авторизации" });
     }
-  } catch (error) {
-    res.status(500).json({
-      message: "На сервере произошла ошибка. Попробуйте позже",
-    });
   }
-});
+);
 
 router.patch("/:roomId/available", auth, async (req, res) => {
   try {
@@ -76,21 +83,30 @@ router.patch("/:roomId/available", auth, async (req, res) => {
   }
 });
 
-router.delete("/:roomId", auth, async (req, res) => {
-  try {
-    const { roomId } = req.params;
-    const removedRoom = await Room.findById(roomId);
-    if (removedRoom.createdBy.toString() === req.user._id) {
-      await removedRoom.remove();
-      return res.send(null);
-    } else {
-      res.status(401).json({ message: "Ошибка авторизации" });
+router.delete(
+  "/:roomId",
+  auth,
+  hasRole(["admin", "owner"]),
+  async (req, res) => {
+    try {
+      const { roomId } = req.params;
+      const removedRoom = await Room.findById(roomId);
+      const user = await User.findById(req.user._id);
+      if (
+        removedRoom.createdBy.toString() === req.user._id ||
+        user.type === "admin"
+      ) {
+        await removedRoom.remove();
+        return res.send(null);
+      } else {
+        res.status(401).json({ message: "Ошибка авторизации" });
+      }
+    } catch (error) {
+      res.status(500).json({
+        message: "На сервере произошла ошибка. Попробуйте позже",
+      });
     }
-  } catch (error) {
-    res.status(500).json({
-      message: "На сервере произошла ошибка. Попробуйте позже",
-    });
   }
-});
+);
 
 module.exports = router;

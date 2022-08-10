@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getCurrentUserData } from "../../store/users";
+import Loader from "./loader";
 
 const NavProfile = () => {
   const [isOpen, setOpen] = useState(false);
@@ -9,7 +10,7 @@ const NavProfile = () => {
   const toggleMenu = () => {
     setOpen((prevState) => !prevState);
   };
-  if (!currentUser) return "Загрузка...";
+  if (!currentUser) return <Loader />;
   return (
     <div className="dropdown" onClick={toggleMenu}>
       <div className="btn dropdown-toggle d-flex align-items-center">
@@ -26,7 +27,7 @@ const NavProfile = () => {
         />
       </div>
       <div className={"w-100 dropdown-menu" + (isOpen ? " show" : "")}>
-        <Link to={`/users/${currentUser._id}`} className="dropdown-item">
+        <Link to={`/profile`} className="dropdown-item">
           Профиль
         </Link>
         <Link to={`/rooms/add`} className="dropdown-item">
