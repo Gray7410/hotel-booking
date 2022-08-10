@@ -52,10 +52,10 @@ router.put(
   async (req, res) => {
     try {
       const { roomId } = req.params;
-
-      const item = await Room.findById(roomId);
-
-      if (item.createdBy.toString() === req.user._id) {
+      const room = await Room.findById(roomId);
+      const user = await User.findById(req.user._id);
+      console.log("edit room", user);
+      if (room.createdBy.toString() === req.user._id || user.role === "admin") {
         const updatedRoom = await Room.findByIdAndUpdate(roomId, req.body, {
           new: true,
         });

@@ -48,7 +48,7 @@ const RegisterForm = () => {
       ></TextField>
       <RadioField
         label="Тип аккаунта"
-        name="type"
+        name="role"
         value={data.role}
         onChange={handleChange}
         options={[

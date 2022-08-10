@@ -81,11 +81,9 @@ export const loadRoomsList = () => async (dispatch, getState) => {
 };
 
 export const createRoom = (payload) => async (dispatch) => {
-  console.log(payload);
   dispatch(roomCreateRequested());
   try {
     const { content } = await roomService.create(payload);
-    console.log(content);
     dispatch(roomCreated(content));
     dispatch(loadRoomsList());
     history.push("/rooms");

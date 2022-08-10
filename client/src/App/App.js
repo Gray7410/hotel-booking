@@ -8,13 +8,14 @@ import Auth from "./layouts/auth";
 import Users from "./layouts/users";
 import LogOut from "./layouts/logOut";
 import Admin from "./layouts/admin";
+import ProtectedRoute from "./components/common/protectedRoute";
 
 function App() {
   return (
     <AppLoader>
       <NavBar />
       <Switch>
-        <Route path="/admin" component={Admin} />
+        <ProtectedRoute path="/admin" component={Admin} />
         <Route path="/logout" component={LogOut} />
         <Route path="/profile/:edit?" component={Users} />
         <Route path="/rooms/add" component={RoomAdd} />

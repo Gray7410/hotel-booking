@@ -17,9 +17,9 @@ const schema = new Schema(
     image: {
       type: String,
     },
-    type: {
+    role: {
       type: String,
-      enum: ["guest", "owner"],
+      enum: ["guest", "owner", "admin"],
     },
   },
   {

@@ -16,7 +16,6 @@ const roomService = {
     return data;
   },
   updateRoom: async (payload) => {
-    console.log(payload);
     const { data } = await httpService.put(
       roomEndpoind + payload._id + "/edit",
       payload

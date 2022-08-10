@@ -8,7 +8,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import AvailableButton from "../../ui/availableButton";
-import { getIsLoggedIn, getCurrentUserId } from "../../../store/users";
+import {
+  getIsLoggedIn,
+  getCurrentUserId,
+  getCurrentUserData,
+} from "../../../store/users";
 
 const RoomPage = () => {
   const dispatch = useDispatch();
@@ -18,6 +22,7 @@ const RoomPage = () => {
   const isLoggedIn = useSelector(getIsLoggedIn());
   const currentUser = useSelector(getCurrentUserId());
   const status = useSelector(getRoomAvailableStatus(roomId));
+  const user = useSelector(getCurrentUserData());
 
   return (
     <div className="container">
@@ -32,7 +37,7 @@ const RoomPage = () => {
         <>
           <div className="mb-3 d-flex flex-row">
             <AvailableButton />
-            {currentUser === room.createdBy && (
+            {(currentUser === room.createdBy || user.role === "admin") && (
               <>
                 <Link to={`${roomId}/edit`}>
                   <button className="btn btn-outline-success m-2">
