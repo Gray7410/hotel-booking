@@ -10,7 +10,7 @@ const RegisterForm = () => {
     email: "",
     password: "",
     name: "",
-    type: "guest",
+    role: "guest",
     licence: false,
   });
   //   const [errors, setErrors] = useState({});
@@ -49,7 +49,7 @@ const RegisterForm = () => {
       <RadioField
         label="Тип аккаунта"
         name="type"
-        value={data.type}
+        value={data.role}
         onChange={handleChange}
         options={[
           { name: "Гость", value: "guest" },

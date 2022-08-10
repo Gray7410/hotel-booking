@@ -94,7 +94,7 @@ router.delete(
       const user = await User.findById(req.user._id);
       if (
         removedRoom.createdBy.toString() === req.user._id ||
-        user.type === "admin"
+        user.role === "admin"
       ) {
         await removedRoom.remove();
         return res.send(null);
