@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getIsLoggedIn } from "../../store/users";
 import NavProfile from "./navProfile";
+import ThemeSwitch from "./themeSwitch";
 
 const NavBar = () => {
   const isLoggedIn = useSelector(getIsLoggedIn());
@@ -21,7 +22,7 @@ const NavBar = () => {
             </Link>
           </li>
         </ul>
-
+        <ThemeSwitch />
         <div className="d-flex">
           {!isLoggedIn ? (
             <Link className="nav-link text-light" to="/auth">
