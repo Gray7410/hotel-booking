@@ -17,7 +17,6 @@ const LoginForm = () => {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("Авторизация: ", data);
     const redirect = history.location.state
       ? history.location.state.from.pathname
       : "/";

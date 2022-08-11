@@ -81,11 +81,9 @@ export const loadRoomsList = () => async (dispatch, getState) => {
 };
 
 export const createRoom = (payload) => async (dispatch) => {
-  console.log(payload);
   dispatch(roomCreateRequested());
   try {
     const { content } = await roomService.create(payload);
-    console.log(content);
     dispatch(roomCreated(content));
     dispatch(loadRoomsList());
     history.push("/rooms");
@@ -137,6 +135,10 @@ export const deleteRoom = (payload) => async (dispatch) => {
     dispatch(roomDeleteFailed());
   }
 };
+
+// export const getBookingRooms = () => (state)=>{
+//   state.rooms.entities.filter((r)=>)
+// }
 
 export const getRoomsList = () => (state) => state.rooms.entities;
 export const getRoomsLoadingStatus = () => (state) => state.rooms.isLoading;

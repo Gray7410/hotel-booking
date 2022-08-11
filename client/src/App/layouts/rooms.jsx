@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import RoomsListPage from "../components/page/roomsListPage";
 import { useSelector } from "react-redux";
-import { getRoomsList } from "../store/rooms";
+import { getRoomById, getRoomsList } from "../store/rooms";
 import { paginate } from "../utils/paginate";
 import Pagination from "../components/common/pagination";
 import RoomsLoader from "../components/ui/hoc/roomsLoader";
 import RoomPage from "../components/page/roomPage/roomPage";
 import { useParams } from "react-router-dom";
 import EditRoomPage from "../components/page/editRoomPage/editRoomPage";
+import { getCurrentUserData, getIsLoggedIn } from "../store/users";
+import AccessDenied from "../components/ui/accessDenied";
 
 const Rooms = () => {
   const params = useParams();
@@ -20,11 +22,22 @@ const Rooms = () => {
   const handlePageChange = (pageIndex) => {
     setCurrentPage(pageIndex);
   };
+  const isLoggedIn = useSelector(getIsLoggedIn());
+  const user = useSelector(getCurrentUserData());
+  const room = useSelector(getRoomById(roomId));
   return (
     <RoomsLoader>
       {roomId ? (
         edit ? (
-          <EditRoomPage />
+          isLoggedIn ? (
+            user.role === "admin" || user._id === room.creatorBy ? (
+              <EditRoomPage />
+            ) : (
+              <AccessDenied />
+            )
+          ) : (
+            <AccessDenied />
+          )
         ) : (
           <RoomPage room={roomId} />
         )

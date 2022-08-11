@@ -128,7 +128,8 @@ export const updateUserData = (payload) => async (dispatch) => {
   try {
     const data = await userService.updateCurrentUser(payload);
     dispatch(userUpdateSuccessed(data));
-    history.push(`/users/${payload._id}`);
+    dispatch(loadUsersList());
+    history.push(`/profile`);
   } catch (error) {
     dispatch(userUpdateFailed());
   }
@@ -147,7 +148,7 @@ export const loadUsersList = () => async (dispatch, getState) => {
 export const getUsersList = () => (state) => state.users.entities;
 export const getCurrentUserData = () => (state) => {
   return state.users.entities
-    ? state.users.entities.find((u) => u._id === state.users.auth.userId)
+    ? state.users.entities.find((u) => u._id === state.users.auth?.userId)
     : null;
 };
 export const getUserById = (userId) => (state) => {
