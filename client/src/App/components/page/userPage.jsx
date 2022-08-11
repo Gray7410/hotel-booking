@@ -33,14 +33,16 @@ const UserPage = () => {
           </Link>
         </div>
       </div>
-      <h3 className="m-3">Забронированные номера</h3>
-      <div className="card">
-        <div className="d-flex flex-wrap m-2">
-          {bookingRooms.map((r) => (
-            <RoomCard room={r} key={r._id} />
-          ))}
-        </div>
-      </div>
+      {bookingRooms.length > 0 && (
+        <>
+          <h3 className="m-3">Забронированные номера</h3>
+          <div className="d-flex flex-wrap m-2">
+            {bookingRooms.map((r) => (
+              <RoomCard room={r} key={r._id} />
+            ))}
+          </div>
+        </>
+      )}
     </div>
   );
 };

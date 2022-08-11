@@ -11,7 +11,6 @@ const RegisterForm = () => {
     password: "",
     name: "",
     role: "guest",
-    licence: false,
   });
   //   const [errors, setErrors] = useState({});
   const handleChange = (target) => {
@@ -22,7 +21,6 @@ const RegisterForm = () => {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("Отправлено: ", data);
     dispatch(signUp(data));
   };
   return (
