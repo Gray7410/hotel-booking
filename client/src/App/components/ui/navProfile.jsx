@@ -30,9 +30,18 @@ const NavProfile = () => {
         <Link to={`/profile`} className="dropdown-item">
           Профиль
         </Link>
-        <Link to={`/rooms/add`} className="dropdown-item">
-          Добавить номер
-        </Link>
+        {currentUser.role === "owner" ||
+          (currentUser.role === "admin" && (
+            <Link to={`/rooms/add`} className="dropdown-item">
+              Добавить номер
+            </Link>
+          ))}
+        {currentUser.role === "admin" && (
+          <Link to={`/admin`} className="dropdown-item">
+            Администратор
+          </Link>
+        )}
+
         <Link to="/logout" className="dropdown-item">
           Выход
         </Link>
