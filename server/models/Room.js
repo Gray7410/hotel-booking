@@ -18,8 +18,8 @@ const schema = new Schema(
       type: String,
       required: true,
     },
-    image: {
-      type: String,
+    img: {
+      type: Object,
     },
     qualities: [{ type: Schema.Types.ObjectId, ref: "Quality" }],
     createdBy: { type: Schema.Types.ObjectId, ref: "User", required: true },

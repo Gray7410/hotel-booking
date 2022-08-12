@@ -4,12 +4,15 @@ import MultiSelectField from "../common/form/multiSelectField";
 import TextAreaField from "../common/form/textAreaField";
 import { useDispatch } from "react-redux";
 import { createRoom } from "../../store/rooms";
+import FileField from "../common/form/fileField";
+import roomService from "../../services/room.service";
 
 const CreateRoomForm = () => {
   const dispatch = useDispatch();
   const [data, setData] = useState({
     name: "",
     places: "",
+    img: null,
     qualities: [],
   });
   const handleChange = (target) => {
@@ -20,14 +23,23 @@ const CreateRoomForm = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(createRoom(data));
+    console.log(data);
+    const form = new FormData();
+    form.append("roomImage", data.img);
+    console.log(form);
+    try {
+      const { content } = await roomService.uploadImage(form);
+      dispatch(createRoom({ ...data, img: content }));
+    } catch (error) {
+      console.log(error.message);
+    }
   };
   return (
     <>
       <div className="container mt-5 col-4">
         <h3>Добавление номера</h3>
         <div className="card p-3 mt-4 mb-5">
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} encType="multipart/form-data">
             <TextField
               label="Название"
               name="name"
@@ -41,6 +53,7 @@ const CreateRoomForm = () => {
               value={data.places}
               onChange={handleChange}
             />
+            <FileField name="img" onChange={handleChange} />
             <MultiSelectField
               onChange={handleChange}
               defaultValue={data.qualities}

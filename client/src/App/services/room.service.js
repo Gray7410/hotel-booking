@@ -33,6 +33,14 @@ const roomService = {
     const { data } = await httpService.delete(roomEndpoind + payload, payload);
     return data;
   },
+  uploadImage: async (payload) => {
+    console.log(payload);
+    const { data } = await httpService.post(
+      roomEndpoind + "uploadImage",
+      payload
+    );
+    return data;
+  },
 };
 
 export default roomService;

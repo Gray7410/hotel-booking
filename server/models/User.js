@@ -15,7 +15,7 @@ const schema = new Schema(
       required: true,
     },
     image: {
-      type: String,
+      type: Object,
     },
     role: {
       type: String,

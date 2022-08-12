@@ -81,6 +81,7 @@ export const loadRoomsList = () => async (dispatch, getState) => {
 };
 
 export const createRoom = (payload) => async (dispatch) => {
+  console.log("createRoom", payload);
   dispatch(roomCreateRequested());
   try {
     const { content } = await roomService.create(payload);
