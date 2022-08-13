@@ -34,7 +34,6 @@ const roomService = {
     return data;
   },
   uploadImage: async (payload) => {
-    console.log(payload);
     const { data } = await httpService.post(
       roomEndpoind + "uploadImage",
       payload

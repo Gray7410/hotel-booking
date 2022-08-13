@@ -33,7 +33,6 @@ router.get("/:roomId", async (req, res) => {
 
 router.post("/add", auth, hasRole(["admin", "owner"]), async (req, res) => {
   try {
-    console.log("add", req.body);
     const newRoom = await Room.create({
       ...req.body,
       available: "null",
@@ -57,7 +56,6 @@ router.put(
       const { roomId } = req.params;
       const room = await Room.findById(roomId);
       const user = await User.findById(req.user._id);
-      console.log("edit room", user);
       if (room.createdBy.toString() === req.user._id || user.role === "admin") {
         const updatedRoom = await Room.findByIdAndUpdate(roomId, req.body, {
           new: true,
@@ -120,7 +118,6 @@ router.post(
   async (req, res) => {
     try {
       const imagePath = `${config.get("url")}/images/${req.file.filename}`;
-      console.log("imagePath", imagePath);
       res.send(imagePath);
     } catch (error) {
       res.status(500).json({
