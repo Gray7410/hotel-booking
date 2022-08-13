@@ -28,7 +28,7 @@ const RoomPage = () => {
     <div className="container">
       <h1>{room.name}</h1>
       <img
-        src="http://almode.ru/uploads/posts/2021-07/1625115962_20-almode_ru-p-spalnya-v-otele-21.jpg"
+        src={room.img}
         className="img-fluid rounded mb-3"
         alt={room.name}
         width="500"

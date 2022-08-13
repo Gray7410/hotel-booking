@@ -3,7 +3,9 @@ const auth = require("../middleware/auth.middleware");
 const Room = require("../models/Room");
 const router = express.Router({ mergeParams: true });
 const hasRole = require("../middleware/admin.middleware");
+const file = require("../middleware/file.middleware");
 const User = require("../models/User");
+const config = require("config");
 
 router.get("/", async (req, res) => {
   try {
@@ -31,6 +33,7 @@ router.get("/:roomId", async (req, res) => {
 
 router.post("/add", auth, hasRole(["admin", "owner"]), async (req, res) => {
   try {
+    console.log("add", req.body);
     const newRoom = await Room.create({
       ...req.body,
       available: "null",
@@ -104,6 +107,24 @@ router.delete(
     } catch (error) {
       res.status(500).json({
         message: "На сервере произошла ошибка. Попробуйте позже",
+      });
+    }
+  }
+);
+
+router.post(
+  "/uploadImage",
+  auth,
+  hasRole(["admin", "owner"]),
+  file.single("roomImage"),
+  async (req, res) => {
+    try {
+      const imagePath = `${config.get("url")}/images/${req.file.filename}`;
+      console.log("imagePath", imagePath);
+      res.send(imagePath);
+    } catch (error) {
+      res.status(500).json({
+        message: "Ошибка загрузки файлов",
       });
     }
   }

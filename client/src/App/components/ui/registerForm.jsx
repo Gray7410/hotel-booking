@@ -3,6 +3,8 @@ import TextField from "../common/form/textField";
 import RadioField from "../common/form/radioField";
 import { useDispatch } from "react-redux";
 import { signUp } from "../../store/users";
+import FileField from "../common/form/fileField";
+import roomService from "../../services/room.service";
 
 const RegisterForm = () => {
   const dispatch = useDispatch();
@@ -19,12 +21,19 @@ const RegisterForm = () => {
       [target.name]: target.value,
     }));
   };
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    dispatch(signUp(data));
+    const form = new FormData();
+    form.append("roomImage", data.img);
+    try {
+      const { content } = await roomService.uploadImage(form);
+      dispatch(signUp({ ...data, img: content }));
+    } catch (error) {
+      console.log(error.message);
+    }
   };
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} encType="multipart/form-data">
       <TextField
         label="Имя"
         name="name"
@@ -44,6 +53,7 @@ const RegisterForm = () => {
         value={data.password}
         onChange={handleChange}
       ></TextField>
+      <FileField name="img" onChange={handleChange} />
       <RadioField
         label="Тип аккаунта"
         name="role"
