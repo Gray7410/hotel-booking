@@ -110,21 +110,15 @@ router.delete(
   }
 );
 
-router.post(
-  "/uploadImage",
-  auth,
-  hasRole(["admin", "owner"]),
-  file.single("roomImage"),
-  async (req, res) => {
-    try {
-      const imagePath = `${config.get("url")}/images/${req.file.filename}`;
-      res.send(imagePath);
-    } catch (error) {
-      res.status(500).json({
-        message: "Ошибка загрузки файлов",
-      });
-    }
+router.post("/uploadImage", file.single("roomImage"), async (req, res) => {
+  try {
+    const imagePath = `${config.get("url")}images/${req.file.filename}`;
+    res.send(imagePath);
+  } catch (error) {
+    res.status(500).json({
+      message: "Ошибка загрузки файлов",
+    });
   }
-);
+});
 
 module.exports = router;

@@ -1,6 +1,6 @@
 {
   "port": 8080,
-  "url": "http://localhost:8080/",
+  "url": "http://185.185.68.199/",
   "mongoUri": "mongodb+srv://f:QVfYSucrp80ZAT6h@cluster0.pwei0.mongodb.net/?retryWrites=true&w=majority",
   "accessSecret": "asndkhasdyhweuduegy",
   "refreshSecret": "fhfgbbkuhibtjknvkjfdnknfdjkgn"

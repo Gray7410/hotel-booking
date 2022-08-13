@@ -3,12 +3,20 @@ import React from "react";
 const Main = () => {
   return (
     <div className="container mt-5">
-      <h3>Главная</h3>
+      <h3>Недорогие гостиницы в центре</h3>
       <div className="card p-3 mt-4 mb-5">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto sint
-        rem labore earum aspernatur sit sapiente unde facilis! Architecto
-        voluptate soluta sed vel consequuntur neque voluptatem mollitia a,
-        laborum accusamus?
+        Наша сеть представляет недорогие гостиницы. Возможность недорого
+        забронировать отель с европейским уровнем обслуживания значит потратить
+        сэкономленные средства на впечатления и новые эмоции, посещение
+        достопримечательностей.
+        <br />
+        <br /> Современный яркий дизайн номеров, низкие цены, удобное
+        расположение отелей и внимание к каждому гостю — главные преимущества
+        сети. Чтобы снять номер, воспользуйтесь онлайн-бронированием сайте— в
+        этом случае мы гарантируем самую низкую цену на.
+        <br />
+        <br /> Выбирайте высококлассный сервис и комфорт проживания в
+        центральном— сеть бюджетных гостиниц работает для вас 24 часа в сутки.
       </div>
     </div>
   );
