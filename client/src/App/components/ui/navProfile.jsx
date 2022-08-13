@@ -17,8 +17,8 @@ const NavProfile = () => {
         <div className="me-2 text-light">{currentUser.name}</div>
         <img
           src={
-            currentUser.image
-              ? currentUser.image
+            currentUser.img
+              ? currentUser.img
               : "https://e7.pngegg.com/pngimages/518/376/png-clipart-technological-university-thanlyin-information-email-telephone-number-sugarcrm-others-miscellaneous-rectangle.png"
           }
           alt=""

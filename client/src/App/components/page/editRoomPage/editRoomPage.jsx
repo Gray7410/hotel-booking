@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import TextField from "../../common/form/textField";
-import MultiSelectField from "../../common/form/multiSelectField";
 import TextAreaField from "../../common/form/textAreaField";
 import { useDispatch, useSelector } from "react-redux";
 import { getRoomById, updateRoom } from "../../../store/rooms";
 import { useParams } from "react-router-dom";
+import roomService from "../../../services/room.service";
+import FileField from "../../common/form/fileField";
 
 const EditRoomPage = () => {
   const params = useParams();
@@ -25,18 +26,21 @@ const EditRoomPage = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const updatedData = {
-      ...room,
-      ...data,
-    };
-    dispatch(updateRoom(updatedData));
+    const form = new FormData();
+    form.append("roomImage", data.img);
+    try {
+      const { content } = await roomService.uploadImage(form);
+      dispatch(updateRoom({ ...room, ...data, img: content }));
+    } catch (error) {
+      console.log(error.message);
+    }
   };
   return (
     <>
       <div className="container mt-5 col-4">
         <h3>Редактирование номера</h3>
         <div className="card p-3 mt-4 mb-5">
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} encType="multipart/form-data">
             <TextField
               label="Название"
               name="name"
@@ -50,12 +54,7 @@ const EditRoomPage = () => {
               value={data.places}
               onChange={handleChange}
             />
-            <MultiSelectField
-              onChange={handleChange}
-              defaultValue={data.qualities}
-              name="qualities"
-              label="Качества"
-            />
+            <FileField name="img" onChange={handleChange} />
             <TextAreaField
               label="Описание"
               name="description"

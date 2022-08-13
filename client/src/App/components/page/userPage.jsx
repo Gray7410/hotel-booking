@@ -15,7 +15,7 @@ const UserPage = () => {
       <div className="card d-flex flex-row mb-3">
         <img
           src={
-            user.avatar ||
+            user.img ||
             "https://static.wixstatic.com/media/f2a160_c9c86716aca24834875db9e82badb39a.png_srz_289_280_85_22_0.50_1.20_0.00_png_srz"
           }
           className="img-fluid rounded m-3 border"

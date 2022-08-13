@@ -14,8 +14,8 @@ const schema = new Schema(
       type: String,
       required: true,
     },
-    image: {
-      type: Object,
+    img: {
+      type: String,
     },
     role: {
       type: String,
