@@ -10,8 +10,9 @@ const EditUserPage = () => {
   const user = useSelector(getCurrentUserData());
   const [data, setData] = useState({
     email: user.email,
-    password: "",
+    password: user.password,
     name: user.name,
+    img: user.img,
   });
   //   const [errors, setErrors] = useState({});
   const handleChange = (target) => {
@@ -22,13 +23,17 @@ const EditUserPage = () => {
   };
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const form = new FormData();
-    form.append("roomImage", data.img);
-    try {
-      const { content } = await roomService.uploadImage(form);
-      dispatch(updateUserData({ ...data, img: content }));
-    } catch (error) {
-      console.log(error.message);
+    if (typeof data.img === "string") {
+      dispatch(updateUserData({ ...data }));
+    } else {
+      const form = new FormData();
+      form.append("roomImage", data.img);
+      try {
+        const { content } = await roomService.uploadImage(form);
+        dispatch(updateUserData({ ...data, img: content }));
+      } catch (error) {
+        console.log(error.message);
+      }
     }
   };
   return (

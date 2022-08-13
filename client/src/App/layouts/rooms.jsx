@@ -30,7 +30,7 @@ const Rooms = () => {
       {roomId ? (
         edit ? (
           isLoggedIn ? (
-            user.role === "admin" || user._id === room.creatorBy ? (
+            user.role === "admin" || user._id === room.createdBy ? (
               <EditRoomPage />
             ) : (
               <AccessDenied />

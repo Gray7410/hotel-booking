@@ -23,7 +23,6 @@ const RoomPage = () => {
   const currentUser = useSelector(getCurrentUserId());
   const status = useSelector(getRoomAvailableStatus(roomId));
   const user = useSelector(getCurrentUserData());
-
   return (
     <div className="container">
       <h1>{room.name}</h1>

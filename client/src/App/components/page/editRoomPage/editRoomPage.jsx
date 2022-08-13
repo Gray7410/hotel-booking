@@ -15,7 +15,7 @@ const EditRoomPage = () => {
   const [data, setData] = useState({
     name: room.name,
     places: room.places,
-    qualities: room.qualities,
+    img: room.img,
     description: room.description,
   });
   const handleChange = (target) => {
@@ -26,13 +26,17 @@ const EditRoomPage = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const form = new FormData();
-    form.append("roomImage", data.img);
-    try {
-      const { content } = await roomService.uploadImage(form);
-      dispatch(updateRoom({ ...room, ...data, img: content }));
-    } catch (error) {
-      console.log(error.message);
+    if (typeof data.img === "string") {
+      dispatch(updateRoom({ ...room, ...data }));
+    } else {
+      const form = new FormData();
+      form.append("roomImage", data.img);
+      try {
+        const { content } = await roomService.uploadImage(form);
+        dispatch(updateRoom({ ...room, ...data, img: content }));
+      } catch (error) {
+        console.log(error.message);
+      }
     }
   };
   return (
