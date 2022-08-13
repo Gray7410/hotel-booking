@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import TextField from "../common/form/textField";
-import MultiSelectField from "../common/form/multiSelectField";
 import TextAreaField from "../common/form/textAreaField";
 import { useDispatch } from "react-redux";
 import { createRoom } from "../../store/rooms";
@@ -23,10 +22,8 @@ const CreateRoomForm = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(data);
     const form = new FormData();
     form.append("roomImage", data.img);
-    console.log(form);
     try {
       const { content } = await roomService.uploadImage(form);
       dispatch(createRoom({ ...data, img: content }));
@@ -54,12 +51,12 @@ const CreateRoomForm = () => {
               onChange={handleChange}
             />
             <FileField name="img" onChange={handleChange} />
-            <MultiSelectField
+            {/* <MultiSelectField
               onChange={handleChange}
               defaultValue={data.qualities}
               name="qualities"
               label="Качества"
-            />
+            /> */}
             <TextAreaField
               label="Описание"
               name="description"
