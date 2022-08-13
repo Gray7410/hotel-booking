@@ -22,7 +22,8 @@ const NavProfile = () => {
               : "https://e7.pngegg.com/pngimages/518/376/png-clipart-technological-university-thanlyin-information-email-telephone-number-sugarcrm-others-miscellaneous-rectangle.png"
           }
           alt=""
-          height="40"
+          width="50"
+          height="50"
           className="img-responsive rounded-circle"
         />
       </div>
@@ -30,12 +31,11 @@ const NavProfile = () => {
         <Link to={`/profile`} className="dropdown-item">
           Профиль
         </Link>
-        {currentUser.role === "owner" ||
-          (currentUser.role === "admin" && (
-            <Link to={`/rooms/add`} className="dropdown-item">
-              Добавить номер
-            </Link>
-          ))}
+        {(currentUser.role === "owner" || currentUser.role === "admin") && (
+          <Link to={`/rooms/add`} className="dropdown-item">
+            Добавить номер
+          </Link>
+        )}
         {currentUser.role === "admin" && (
           <Link to={`/admin`} className="dropdown-item">
             Администратор

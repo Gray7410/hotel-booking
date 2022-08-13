@@ -8,7 +8,12 @@ const RoomCard = ({ room }) => {
       className="text-decoration-none text-reset text-center"
     >
       <div className="card m-2" style={{ width: 415 }}>
-        <img src={room.img} className="card-img-top" alt={room.name} />
+        <img
+          src={room.img}
+          className="card-img-top"
+          alt={room.name}
+          height={250}
+        />
         <div className="card-body">
           <h5 className="card-text fw-light">{room.name}</h5>
         </div>

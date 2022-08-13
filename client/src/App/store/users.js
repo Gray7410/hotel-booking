@@ -94,7 +94,7 @@ export const login =
       const data = await authService.login({ email, password });
       localStorageService.setTokens(data);
       dispatch(authRequestSuccess({ userId: data.localId }));
-      history.push(redirect);
+      window.location.reload();
     } catch (error) {
       const { code, message } = error.response.data.error;
       if (code === 400) {
@@ -113,6 +113,7 @@ export const signUp = (payload) => async (dispatch) => {
     localStorageService.setTokens(data);
     dispatch(authRequestSuccess({ userId: data.userId }));
     history.push("/rooms");
+    window.location.reload();
   } catch (error) {
     dispatch(authRequestFailed(error.message));
   }

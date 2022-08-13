@@ -21,6 +21,7 @@ const LoginForm = () => {
       ? history.location.state.from.pathname
       : "/";
     dispatch(login({ payload: data, redirect }));
+    history.push("/");
   };
   return (
     <form onSubmit={handleSubmit}>
