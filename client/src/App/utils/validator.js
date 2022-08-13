@@ -31,8 +31,6 @@ export function validator(data, config) {
         break;
       }
       case "isImage": {
-        // const imageRegExp = /\.(jpg|jpeg|png|gif)$/;
-        console.log(data?.name);
         statusValidate = typeof data?.name !== "string";
       }
       default:
