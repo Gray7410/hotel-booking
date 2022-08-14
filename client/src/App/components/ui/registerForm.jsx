@@ -88,12 +88,14 @@ const RegisterForm = () => {
         name="name"
         value={data.name}
         onChange={handleChange}
+        error={errors.name}
       ></TextField>
       <TextField
         label="Почта"
         name="email"
         value={data.email}
         onChange={handleChange}
+        error={errors.email}
       ></TextField>
       <TextField
         label="Пароль"
@@ -101,6 +103,7 @@ const RegisterForm = () => {
         type="password"
         value={data.password}
         onChange={handleChange}
+        error={errors.password}
       ></TextField>
       <FileField name="img" onChange={handleChange} />
       <RadioField
