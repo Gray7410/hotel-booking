@@ -1,4 +1,4 @@
 {
-  "apiEndpoint": "http://hotel-booking.fominso.ru/api",
+  "apiEndpoint": "https://hotel-booking.fominso.ru/api",
   "isFireBase": false
 }
